@@ -88,6 +88,7 @@ namespace SortOfRandomFileChooser
                     {
                         File.Copy(filePaths, FileManagement.RelativeToApplication("Random Files", x[x.Length - 1]));
                     }
+
                 }
 
                 Console.WriteLine("File Paths Exported to: {0}", FileManagement.RelativeToApplication("RetrievedFiles.txt"));
