@@ -7,6 +7,15 @@ Please note: This was built in under half an hour as throwaway because I was laz
 * Simplicity (Simplicity.Core.dll)
 
 ##Procurement
+Clone the repository via the bash or a GUI based client:
 ```
 git clone https://github.com/MSantilal/SortOfRandomFileChooser.git
 ```
+##Build Requirement
+* Visual Studio 2015
+
+##Copyright
+Copyright 2015 Monil Santilal
+
+
+Licensed under the [MIT License](https://github.com/MSantilal/SortOfRandomFileChooser/blob/master/LICENSE)
