@@ -10,7 +10,6 @@ namespace SortOfRandomFileChooser
 {
     public static class Program
     {
-        private static Random random;
         private static List<string> listOfFilesFound;
 
         public static void Main(string[] args)
@@ -48,10 +47,9 @@ namespace SortOfRandomFileChooser
                 }
 
                 var filesInDirectory = Directory.EnumerateFiles(directoryPath, string.Format("*{0}", fileExtension), SearchOption.AllDirectories);
-                random = new Random((int) DateTime.Now.Ticks);
-
+                
                 var files = new List<string>(filesInDirectory);
-
+                var random = new Random((int) DateTime.Now.Ticks);
                 if (fileCountRequired != null)
                 {
                     listOfFilesFound = new List<string>();
@@ -72,6 +70,7 @@ namespace SortOfRandomFileChooser
         {
             Console.Write("Response: ");
             var writeToFileResponse = Console.ReadLine();
+            var duplicatedFiles = new List<string>();
             if (writeToFileResponse == "Y" || writeToFileResponse == "y")
             {
                 Console.WriteLine("Copying Files...");
@@ -88,11 +87,19 @@ namespace SortOfRandomFileChooser
                     {
                         File.Copy(filePaths, FileManagement.RelativeToApplication("Random Files", x[x.Length - 1]));
                     }
-
+                    else
+                    {
+                        duplicatedFiles.Add(filePaths);
+                    }
                 }
 
                 Console.WriteLine("File Paths Exported to: {0}", FileManagement.RelativeToApplication("RetrievedFiles.txt"));
                 Console.WriteLine("Files Copied to: {0}", FileManagement.RelativeToApplication("Random Files"));
+                Console.WriteLine("The following files were not copied as they were duplicate: ");
+                foreach (var dupFiles in duplicatedFiles)
+                {
+                    Console.WriteLine(dupFiles);
+                }
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadKey();
             }
