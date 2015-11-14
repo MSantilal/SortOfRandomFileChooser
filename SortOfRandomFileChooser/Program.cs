@@ -19,11 +19,13 @@ namespace SortOfRandomFileChooser
 
         private static void GetRandomFiles()
         {
-            var assemblyTitle = ((AssemblyTitleAttribute) Attribute.GetCustomAttribute(
+
+            // Header information about developer (Monil)
+            var assemblyTitle = ((AssemblyTitleAttribute)Attribute.GetCustomAttribute(
                 Assembly.GetExecutingAssembly(), typeof(AssemblyTitleAttribute), false)).Title;
-            var copyright = ((AssemblyCopyrightAttribute) Attribute.GetCustomAttribute(
+            var copyright = ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(
                 Assembly.GetExecutingAssembly(), typeof(AssemblyCopyrightAttribute), false)).Copyright;
-            var version = ((AssemblyFileVersionAttribute) Attribute.GetCustomAttribute(
+            var version = ((AssemblyFileVersionAttribute)Attribute.GetCustomAttribute(
                 Assembly.GetExecutingAssembly(), typeof(AssemblyFileVersionAttribute), false)).Version;
 
             Console.WriteLine("***************************************************************");
@@ -31,6 +33,7 @@ namespace SortOfRandomFileChooser
             Console.WriteLine(string.Format("-- {0}", copyright));
             Console.WriteLine("***************************************************************");
 
+            // User inputs for dir location, number of files and type of files to be gathered
             Console.WriteLine(String.Empty);
             Console.Write("Enter Directory Path: ");
             var directoryPath = Console.ReadLine();
@@ -38,6 +41,8 @@ namespace SortOfRandomFileChooser
             var fileCountRequired = Console.ReadLine();
             Console.Write("File Extension Required: ");
             var fileExtension = Console.ReadLine();
+
+            // Formatting dir entered for use
             if (directoryPath != null)
             {
                 if (directoryPath.Contains('"'))
@@ -46,20 +51,46 @@ namespace SortOfRandomFileChooser
                     directoryPath = directoryPath.TrimEnd('"');
                 }
 
+                // Produces a list of all files in the specified dir, and with the specified extension as given by the user above
+                // (if the user entered .java then all Java files in the dir etc.)
                 var filesInDirectory = Directory.EnumerateFiles(directoryPath, string.Format("*{0}", fileExtension), SearchOption.AllDirectories);
-                
                 var files = new List<string>(filesInDirectory);
-                var random = new Random((int) DateTime.Now.Ticks);
+
+                // Random variable created based on the current date/time
+                var random = new Random((int)DateTime.Now.Ticks);
+
+                // Checks that the user entered a number of files to be randomly chosen
                 if (fileCountRequired != null)
                 {
+                    // New list created to hold randomly selected file names, for loop cycles 
                     listOfFilesFound = new List<string>();
-                    for (int i = 0; i < int.Parse(fileCountRequired); i++)
+
+                    // Variable for stopping condition on for loop below
+                    int j = int.Parse(fileCountRequired);
+
+                    for (int i = 0; i < j; i++)
                     {
                         var fileName = files[random.Next(0, files.Count)];
-                        listOfFilesFound.Add(fileName);
-                        Console.WriteLine(fileName);
-                        Thread.Sleep(2500);
+                        bool fileExists;
+
+                        if (fileExists = listOfFilesFound.Exists(element => element == fileName))
+                        {
+                            Console.WriteLine("*******************");
+                            Console.WriteLine("*******************");
+                            Console.WriteLine("Duplicate file found, skipping file and adding 1 to number of files required");
+                            Console.WriteLine("*******************");
+                            Console.WriteLine("*******************");
+                            j += 1;
+
+                        }
+                        else
+                        {
+                            listOfFilesFound.Add(fileName);
+                            Console.WriteLine(fileName);
+
+                        }
                     }
+
                     Console.WriteLine("Files Found. Copy to local directory? Y/N");
                     CopyFilesToFolder();
                 }
