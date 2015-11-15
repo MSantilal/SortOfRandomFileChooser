@@ -7,7 +7,7 @@ Please note: This was built in under half an hour as throwaway because I was laz
 * Simplicity (Simplicity.Core.dll)
 
 ##Procurement
-Clone the repository via the bash or a GUI based client:
+Clone the repository via bash or a GUI based client:
 ```
 git clone https://github.com/MSantilal/SortOfRandomFileChooser.git
 ```
