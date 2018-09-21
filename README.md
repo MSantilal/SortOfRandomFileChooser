@@ -3,18 +3,18 @@ Quick solution built in order to generate a random set of files for a project at
 
 Please note: This was built in under half an hour as throwaway because I was lazy to look through each folder for files. Therefore, the code is pretty messy and is quite buggy. Especially the randomisation, so please be kind! :)
 
-##Dependencies
+## Dependencies
 * Simplicity (Simplicity.Core.dll)
 
-##Procurement
+## Procurement
 Clone the repository via bash or a GUI based client:
 ```
 git clone https://github.com/MSantilal/SortOfRandomFileChooser.git
 ```
-##Build Requirement
+## Build Requirement
 * Visual Studio 2015
 
-##Copyright
+## Copyright
 Copyright 2015 Monil Santilal & [Mark Vallis](https://github.com/MarkVee87)
 
 
